@@ -1,5 +1,5 @@
 <h2 class="top">Name: <%= @user.name %></h2>
-<h3>Restaurants to try</h3>
+<h3>Favorite Restaurants</h3>
 <ul>
   <% @user.restaurants.each do |restaurant| %>
   <li><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a></li>

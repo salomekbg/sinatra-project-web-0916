@@ -7,21 +7,23 @@
 <li><a href="<%= @restaurant.yelp_url %>" target="_blank">See it on Yelp</a></li>
 </ul>
 <br>
-<h3>People who want to try</h3>
+<h3>People who added this restaurant to their favorites</h3>
 <ul class="no-bullets">
 <% @restaurant.users.each do |user| %>
-  <li><i class="fa fa-check-square-o" aria-hidden="true"></i><a href="/users/<%= user.id %>"><%= user.name %></a></li>
+  <li><i class="fa fa-heart" aria-hidden="true"></i><a href="/users/<%= user.id %>"><%= user.name %></a></li>
 <% end %>
 </ul>
 <br>
-<h3>Add To List of Restaurants to Try</h3>
+<h3>Add To Favorites</h3>
 <form action="/restaurants/<%= @restaurant.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
+  <!-- <div class="dropdown"> -->
   <select name="added_user">
     <% @users.each do |user| %>
       <option value="<%= user.id %>"><%= user.name %></option>
     <% end %>
   </select>
+<!-- </div> -->
   <input type="submit" name="submit" value="Submit" class="smbutton">
 </form>
 <br><br>
