@@ -2,13 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="https://use.fontawesome.com/1827ac8642.js"></script>
+    <link rel="stylesheet" href="/style.css">
     <title></title>
+
   </head>
   <body>
-
-    <a href="/restaurants/new">Add a Restaurant</a> <a href="/users/new">Add a User</a> <a href="/restaurants">See all Restaurants</a> <a href="/users">See all Users</a>
+    <div class="nav">
+      <ul>
+        <li><a href="/restaurants/new">Add A Restaurant</a></li>
+        <li><a href="/users/new">Add A User</a></li>
+        <li><a href="/restaurants">See All Restaurants</a></li>
+        <li><a href="/users">See All Users</a></li>
+      </ul>
+    </div>
     <br><br>
     <%= yield %>
-
   </body>
 </html>

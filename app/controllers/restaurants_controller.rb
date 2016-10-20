@@ -11,6 +11,9 @@ class RestaurantsController < ApplicationController
 
   post '/restaurants' do
     restaurant = Restaurant.create(params[:restaurant])
+    yelp_url = "https://www.yelp.com/search?find_desc=#{params[:restaurant][:name].split(" ").join("+")}&find_loc=#{params[:restaurant][:address].split(" ").join("+")}"
+    google_url = "http://maps.google.com/?q=#{params[:restaurant][:address].split(/[\s,]+/).join("+")}"
+    restaurant.update(yelp_url:yelp_url, google_url:google_url)
     redirect to "/restaurants/#{restaurant.id}"
   end
 
@@ -26,7 +29,6 @@ class RestaurantsController < ApplicationController
   end
 
   patch '/restaurants/:id' do
-
     @restaurant = Restaurant.find(params[:id])
     if params[:restaurant] == nil
       @restaurant.users << User.find(params[:added_user])
@@ -38,6 +40,17 @@ class RestaurantsController < ApplicationController
 
   delete '/restaurants/:id' do
     Restaurant.find(params[:id]).destroy
+    redirect to '/restaurants'
+  end
+
+  post '/restaurants/results' do
+    params[:yelp_ids].each do |id|
+      restaurant = Business.find_by(yelp_id: id)
+      modified_address = restaurant.formatted_address
+      address_for_google = modified_address.split(/[\s,]+/).join("+")
+      google_url = "http://maps.google.com/?q=#{address_for_google}"
+      Restaurant.create(name: restaurant.name, rating: restaurant.rating, address: modified_address, rating_count: restaurant.review_count, phone: restaurant.phone, yelp_url: restaurant.url, google_url: google_url)
+    end
     redirect to '/restaurants'
   end
 

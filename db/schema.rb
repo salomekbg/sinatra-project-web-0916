@@ -11,12 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018192820) do
+ActiveRecord::Schema.define(version: 20161019191913) do
+
+  create_table "businesses", force: :cascade do |t|
+    t.string  "name"
+    t.string  "rating"
+    t.integer "review_count"
+    t.string  "address"
+    t.string  "phone"
+    t.string  "url"
+    t.string  "yelp_id"
+  end
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.string "rating"
-    t.string "address"
+    t.string  "name"
+    t.string  "rating"
+    t.string  "address"
+    t.string  "phone"
+    t.string  "yelp_url"
+    t.integer "rating_count"
+    t.string  "google_url"
   end
 
   create_table "user_restaurants", force: :cascade do |t|

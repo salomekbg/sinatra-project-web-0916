@@ -1,15 +1,20 @@
-<p>Name: <%= @restaurant.name %></p>
-<p>Rating: <%= @restaurant.rating %></p>
-<p>Address: <%= @restaurant.address %></p>
-<br>
-People who want to try
-<br>
+<h2 class="top">Name: <%= @restaurant.name %></h2>
 <ul>
+<li>Rating: <%= @restaurant.rating %></li>
+<li>Review Count: <%= @restaurant.rating_count %></li>
+<li>Address: <a href="<%= @restaurant.google_url %>" target="_blank"><%= @restaurant.address %></a>
+<li>Phone: <%= @restaurant.phone %></li>
+<li><a href="<%= @restaurant.yelp_url %>" target="_blank">See it on Yelp</a></li>
+</ul>
+<br>
+<h3>People who want to try</h3>
+<ul class="no-bullets">
 <% @restaurant.users.each do |user| %>
-  <li><%= user.name %></li>
+  <li><i class="fa fa-check-square-o" aria-hidden="true"></i><a href="/users/<%= user.id %>"><%= user.name %></a></li>
 <% end %>
 </ul>
-<h4>Add To List of Restaurants to Try</h4>
+<br>
+<h3>Add To List of Restaurants to Try</h3>
 <form action="/restaurants/<%= @restaurant.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <select name="added_user">
@@ -17,15 +22,13 @@ People who want to try
       <option value="<%= user.id %>"><%= user.name %></option>
     <% end %>
   </select>
-  <input type="submit" name="submit" value="submit">
+  <input type="submit" name="submit" value="Submit" class="smbutton">
 </form>
-
-<br>
-<form  action="/restaurants/<%=@restaurant.id%>" method="post">
+<br><br>
+<form  action="/restaurants/<%= @restaurant.id %>" method="post">
   <input type="hidden" id="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete">
+  <input type="submit" value="Delete Restaurant" class="button">
 </form>
-<br>
-<form action="/restaurants/<%=@restaurant.id%>/edit" method="get">
-  <input type="submit" value="Edit">
+<form action="/restaurants/<%= @restaurant.id %>/edit" method="get">
+  <input type="submit" value="Edit Restaurant" class="button">
 </form>
